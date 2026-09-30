@@ -11,6 +11,7 @@ out/
 
 # jpackage application bundle
 /PPT阅读器/
+dist/
 
 # Logs and JVM crash reports
 *.log
@@ -22,4 +23,4 @@ replay_pid*
 Thumbs.db
 Desktop.ini
 
-# Keep gradle/wrapper/ and lib/ JARs: they are required to build.
+# Keep gradle/wrapper/gradle-wrapper.jar; dependencies are managed by Gradle.

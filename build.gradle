@@ -1,22 +1,48 @@
 plugins {
-    id 'java'
+    id 'application'
 }
 
 repositories {
     mavenCentral()
 }
 
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+application {
+    mainClass = 'myppt.App'
+}
+
 dependencies {
-    // ✅ 显式添加 Lombok（关键！）
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
-
-    // ✅ 其他本地 JAR 使用 implementation
-    implementation fileTree(dir: 'lib', include: ['*.jar'], excludes: ['lombok.jar'])
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+    implementation 'com.formdev:flatlaf:3.2.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.2'
 }
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform { excludeTags 'desktop' }
+}
+
+tasks.register('desktopTest', Test) {
+    description = 'Run the Swing workflow smoke test in a desktop session.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform { includeTags 'desktop' }
+    shouldRunAfter test
+}
+
 jar {
     manifest {
-        attributes 'Main-Class': 'main.Main'  // 替换成你的主类名
+        attributes 'Main-Class': application.mainClass.get()
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
