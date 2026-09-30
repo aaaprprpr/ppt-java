@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // ✅ 显式添加 Lombok（关键！）
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    // ✅ 其他本地 JAR 使用 implementation
+    implementation fileTree(dir: 'lib', include: ['*.jar'], excludes: ['lombok.jar'])
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.Main'  // 替换成你的主类名
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

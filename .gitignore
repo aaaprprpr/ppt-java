@@ -1,0 +1,25 @@
+# Gradle caches and build output
+.gradle/
+build/
+out/
+*.class
+
+# IDE configuration
+.idea/
+*.iml
+.vscode/
+
+# jpackage application bundle
+/PPT阅读器/
+
+# Logs and JVM crash reports
+*.log
+hs_err_pid*
+replay_pid*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep gradle/wrapper/ and lib/ JARs: they are required to build.
