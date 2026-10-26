@@ -1,4 +1,4 @@
-# MyPPT 幻灯片编辑器
+# java大作业 PPT 幻灯片编辑器
 
 基于 Java 21 和 Swing 的课程项目，支持文本、矩形、圆形、直线、图片、多页编辑和全屏放映。文档使用自定义的 `.myppt` 格式，不支持直接读写 PowerPoint 的 `.ppt/.pptx`。
 
